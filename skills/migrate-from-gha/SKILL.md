@@ -2,6 +2,7 @@
 name: migrate-from-gha
 description: Migrate a GitHub Actions workflow to RWX. Translates triggers, jobs, steps into an optimized RWX config with DAG parallelism, content-based caching, and RWX packages.
 argument-hint: [path/to/.github/workflows/ci.yml]
+allowed-tools: Bash(curl *)
 ---
 
 ## RWX Reference
@@ -70,13 +71,18 @@ Structure the file in this order:
 
 ### Step 7: Validate
 
-After writing the file, check for LSP diagnostics (errors and warnings) on the generated
-`.rwx/*.yml` file. If there are errors:
+After writing the file, review any LSP diagnostics (errors and warnings) that appear. This
+plugin bundles an LSP server (`rwx lsp serve`) that automatically validates RWX config files —
+diagnostics are surfaced automatically after you write or edit `.rwx/*.yml` files.
+
+If there are diagnostics:
+
 - Read the diagnostic messages
 - Fix the issues in the generated config
-- Repeat until the file is clean
+- Re-check diagnostics after each fix until the file is clean
 
-Common issues to watch for:
+Common issues the LSP will catch:
+
 - Invalid YAML structure
 - Unknown task keys or properties
 - Outdated package versions (the LSP will suggest updates)
