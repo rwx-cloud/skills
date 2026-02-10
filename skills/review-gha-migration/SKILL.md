@@ -1,5 +1,5 @@
 ---
-name: review-migration
+name: review-gha-migration
 description: Review an RWX config generated from a GitHub Actions migration. Compares the source workflow against the generated config to catch semantic gaps, missing steps, and optimization opportunities.
 argument-hint: [.rwx/ci.yml]
 allowed-tools: Bash(curl *)
