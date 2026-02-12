@@ -1,6 +1,7 @@
 # GHA-to-RWX Cheat Sheet
 
-Quick-reference mapping of common GitHub Actions patterns to their RWX equivalents.
+Quick-reference mapping of common GitHub Actions patterns to their RWX
+equivalents.
 
 Fetch the latest cheat sheet content:
 
