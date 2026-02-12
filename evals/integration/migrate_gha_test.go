@@ -51,7 +51,7 @@ func clonesRepo() evals.ConfigAssertion {
 	)
 }
 
-// simple-ci.yml: checkout → setup-go 1.23 → go mod download → go test → go vet
+// simple-ci.yml: checkout → setup-go 1.26 → go mod download → go test → go vet
 func TestMigrateGHASimpleCI(t *testing.T) {
 	runGHAMigrationEval(t, "simple-ci.yml", []evals.ConfigAssertion{
 		clonesRepo(),
@@ -61,7 +61,7 @@ func TestMigrateGHASimpleCI(t *testing.T) {
 	})
 }
 
-// matrix-ci.yml: matrix (go 1.22, 1.23) + postgres service + cache + env vars + race tests
+// matrix-ci.yml: matrix (go 1.22, 1.26) + postgres service + cache + env vars + race tests
 func TestMigrateGHAMatrixCI(t *testing.T) {
 	runGHAMigrationEval(t, "matrix-ci.yml", []evals.ConfigAssertion{
 		clonesRepo(),
