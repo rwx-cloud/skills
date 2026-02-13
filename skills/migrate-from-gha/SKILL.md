@@ -15,6 +15,7 @@ Read the cheat sheet before starting:
 ## Migration Procedure
 
 You are migrating a GitHub Actions workflow to RWX. Follow these steps exactly.
+Do NOT use TodoWrite — this procedure is your task list.
 
 ### Step 1: Read and analyze the source workflow
 
