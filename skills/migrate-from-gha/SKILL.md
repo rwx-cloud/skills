@@ -16,54 +16,30 @@ Read the cheat sheet before starting:
 
 You are migrating a GitHub Actions workflow to RWX. Follow these steps exactly.
 
-### Step 1: Read the source workflow
+### Step 1: Read and analyze the source workflow
 
 Read the GitHub Actions workflow file at `$ARGUMENTS`. If no path is provided,
 look for `.github/workflows/` and list the available workflow files for the user
 to choose from.
 
-### Step 2: Analyze the workflow structure
+Identify all jobs and their `needs:` dependencies, all steps within each job,
+triggers (`on:` events), secrets referenced (`${{ secrets.* }}`), environment
+variables (`env:` blocks at workflow, job, and step level), matrix strategies,
+services, composite action references, reusable workflow calls, artifact
+upload/download steps, and cache steps (these will be removed — RWX handles
+caching natively).
 
-Identify:
+For steps using `uses: ./.github/actions/foo`, read that action's `action.yml`
+and inline its logic into the translated RWX config. For cross-repo references
+(`uses: org/repo@ref`), add a `# TODO:` comment explaining what the action does
+and that the user needs to translate it manually or find an RWX package
+equivalent.
 
-- All jobs and their `needs:` dependencies
-- All steps within each job
-- Triggers (`on:` events)
-- Secrets referenced (`${{ secrets.* }}`)
-- Environment variables (`env:` blocks at workflow, job, and step level)
-- Matrix strategies
-- Services
-- Composite action references (`uses: ./.github/actions/*`)
-- Reusable workflow calls (`uses: org/repo/.github/workflows/*`)
-- Artifact upload/download steps
-- Cache steps (these will be removed — RWX handles caching natively)
+Tell the user what you found: how many jobs, the dependency graph between them,
+which triggers are configured, which composite actions you inlined, and which
+cross-repo references will need TODO comments. Keep it brief.
 
-Before continuing, tell the user what you found: how many jobs, the dependency
-graph between them, which triggers are configured, and anything notable (matrix
-strategies, services, composite actions, reusable workflows). Keep it brief — a
-few sentences, not a full listing.
-
-### Step 3: Follow local composite action references
-
-For steps using `uses: ./.github/actions/foo`:
-
-- Read that action's `action.yml`
-- Inline its logic into the translated RWX config
-
-For cross-repo references (`uses: org/repo@ref`):
-
-- Add a `# TODO:` comment explaining what the action does and that the user
-  needs to translate it manually or find an RWX package equivalent
-
-Tell the user which composite actions you inlined and which cross-repo
-references will need TODO comments.
-
-### Step 4: Use MCP tools if available
-
-MCP tools specific to this migration are not yet available, so for now you can
-skip this step.
-
-### Step 5: Apply RWX optimization rules
+### Step 2: Write the optimized RWX config
 
 Fetch the full reference documentation now. Read these reference files and then
 fetch their contents:
@@ -76,13 +52,6 @@ optimization rules from the reference documentation — including DAG
 decomposition, content-based caching, package substitution, trigger mapping,
 secret mapping, and environment variable translation.
 
-Before writing the file, tell the user your planned DAG structure: which tasks
-you'll create, what runs in parallel vs sequentially, and any notable
-optimization decisions (packages substituted, caches removed, jobs decomposed).
-This lets the user course-correct before you write the config.
-
-### Step 6: Write the output
-
 Write the generated RWX config to `.rwx/<name>.yml`, where `<name>` is derived
 from the source workflow filename (e.g., `ci.github.yml` → `.rwx/ci.yml`).
 
@@ -94,41 +63,25 @@ Structure the file in this order:
 4. `tasks:` array, ordered by DAG level (independent tasks first, then their
    dependents)
 
-### Step 7: Validate
-
 After writing the file, validate the generated config:
 
     rwx lint .rwx/<name>.yml
 
-If there are diagnostics:
-
-- Read the diagnostic messages
-- Fix the issues in the generated config
-- Re-check diagnostics after each fix until the file is clean
-
-Common issues the validator will catch:
-
-- Invalid YAML structure
-- Unknown task keys or properties
-- Outdated package versions (the validator will suggest updates)
-- Missing required fields
-
-You can also initiate test runs locally without pushing the code. See
+If there are diagnostics, fix the issues and re-check until the file is clean.
+You can also initiate test runs locally without pushing the code — see
 `rwx run --help` for documentation.
 
-### Step 8: Automated review
+### Step 3: Review and summarize
 
 Tell the user: "Now reviewing the migration to check for gaps."
 
 Perform the review inline by reading and following the review procedure from
 [review-gha-migration/SKILL.md](../review-gha-migration/SKILL.md). You already
-have the reference docs from Step 5 — do not re-fetch them.
+have the reference docs from Step 2 — do not re-fetch them.
 
 If the review found blocking issues, fix them before continuing.
 
-### Step 9: Summarize
-
-Provide a final summary to the user that covers both the migration and the
+Then provide a final summary to the user that covers both the migration and the
 review:
 
 - What the original workflow did
