@@ -74,8 +74,8 @@ Pay special attention to:
 
 ### Step 4: Verify RWX optimizations
 
-Fetch the full reference documentation now. Read these reference files and then
-fetch their contents:
+If you don't already have the reference documentation in context, fetch it now.
+Read these reference files and then fetch their contents:
 
 - [RWX Reference](references/rwx-reference.md)
 - [GHA-to-RWX Mapping](references/gha-reference.md)
