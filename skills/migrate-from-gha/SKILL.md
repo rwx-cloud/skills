@@ -118,55 +118,13 @@ You can also initiate test runs locally without pushing the code. See
 
 ### Step 8: Automated review
 
-Tell the user: "Launching a review of the migration. This reviewer has no
-knowledge of the decisions made during migration — it will read both files from
-scratch and check for gaps."
+Tell the user: "Now reviewing the migration to check for gaps."
 
-First, read the reference docs and the review procedure so you can include them:
+Perform the review inline by reading and following the review procedure from
+[review-gha-migration/SKILL.md](../review-gha-migration/SKILL.md). You already
+have the reference docs from Step 5 — do not re-fetch them.
 
-- Fetch the contents from the URLs in
-  [RWX Reference](references/rwx-reference.md) and
-  [GHA-to-RWX Mapping](references/gha-reference.md)
-- Read the review procedure at
-  [review-gha-migration/SKILL.md](../review-gha-migration/SKILL.md)
-
-**If you have the ability to spawn a subagent** (e.g., Claude Code's Task tool),
-do so for an independent review with fresh context. Spawn the reviewer using a
-general-purpose subagent with a prompt that includes:
-
-1. The full contents of the review procedure (from the SKILL.md you just read)
-2. The full contents of both reference docs (from the fetches you just ran)
-3. The file paths to review
-
-Structure the prompt like this:
-
-```
-You are reviewing an RWX config that was migrated from a GitHub Actions workflow.
-Your job is to catch problems the implementer missed. Approach this as a skeptical
-reviewer, not as someone defending prior work.
-
-## Review Procedure
-<paste the review procedure from SKILL.md here>
-
-## RWX Reference
-<paste the RWX reference doc here>
-
-## GHA-to-RWX Mapping Reference
-<paste the GHA mapping doc here>
-
-## Files to Review
-- Source GHA workflow: <path from step 1>
-- Generated RWX config: <path from step 6>
-```
-
-Replace the placeholders with the actual content and paths.
-
-**Otherwise**, perform the review inline by reading and following the review
-procedure from
-[review-gha-migration/SKILL.md](../review-gha-migration/SKILL.md).
-
-Wait for the review to complete. If the review found blocking issues, fix them
-before continuing.
+If the review found blocking issues, fix them before continuing.
 
 ### Step 9: Summarize
 
