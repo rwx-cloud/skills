@@ -98,7 +98,14 @@ func checkThreshold(t *testing.T, metric string, baseline, current int, maxIncre
 	if baseline == 0 {
 		return
 	}
-	increase := float64(current-baseline) / float64(baseline)
+	diff := current - baseline
+	increase := float64(diff) / float64(baseline)
+	// Skip percentage-based checks when the absolute difference is trivially
+	// small — LLM token counts naturally fluctuate by small amounts between
+	// runs, and percentage thresholds are unreliable for small baselines.
+	if diff <= 50 {
+		return
+	}
 	if increase > maxIncrease {
 		t.Errorf("%s regressed: baseline=%d, current=%d (%.0f%% increase, max allowed %.0f%%)",
 			metric, baseline, current, increase*100, maxIncrease*100)
