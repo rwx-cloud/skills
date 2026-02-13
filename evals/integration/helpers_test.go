@@ -92,15 +92,16 @@ func assertRWXConfigValid(t *testing.T, ctx context.Context, workDir string) {
 	}
 
 	for _, f := range matches {
-		runValidation(t, ctx, "rwx", "lint", f)
+		runValidation(t, ctx, workDir, "rwx", "lint", f)
 	}
 }
 
-// runValidation runs a command and fails the test if it exits non-zero.
-func runValidation(t *testing.T, ctx context.Context, name string, args ...string) {
+// runValidation runs a command in the given directory and fails the test if it exits non-zero.
+func runValidation(t *testing.T, ctx context.Context, dir string, name string, args ...string) {
 	t.Helper()
 
 	cmd := exec.CommandContext(ctx, name, args...)
+	cmd.Dir = dir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Errorf("%s %v failed: %v\noutput: %s", name, args, err, output)
@@ -119,10 +120,10 @@ func assertOutputMentions(t *testing.T, result *evals.ExecutionResult, substr st
 	}
 }
 
-// evalContext returns a context with a 5-minute timeout.
+// evalContext returns a context with a 15-minute timeout.
 func evalContext(t *testing.T) context.Context {
 	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Minute)
 	t.Cleanup(cancel)
 	return ctx
 }

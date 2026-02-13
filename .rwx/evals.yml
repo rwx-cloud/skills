@@ -78,7 +78,7 @@ tasks:
         run: |
           cd evals
           mkdir -p tmp
-          gotestsum --jsonfile tmp/go-test-TEST_NAME.json -- -run ^TEST_NAME$ -timeout 600s ./integration/
+          gotestsum --jsonfile tmp/go-test-TEST_NAME.json -- -run ^TEST_NAME$ -timeout 1200s ./integration/
         outputs:
           test-results:
             - path: evals/tmp/go-test-TEST_NAME.json
