@@ -3,9 +3,16 @@ on:
     pull_request:
       init:
         commit-sha: ${{ event.git.sha }}
+        branch: ${{ event.git.branch }}
   cli:
     init:
       commit-sha: ${{ event.git.sha }}
+      branch: ${{ event.git.branch }}
+
+concurrency-pools:
+  - id: rwx-cloud/skills:${{ init.branch }}
+    capacity: 1
+    on-overflow: cancel-running
 
 base:
   image: ubuntu:24.04
