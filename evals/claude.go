@@ -17,11 +17,13 @@ var update = flag.Bool("update", false, "update baseline snapshots")
 // ClaudeEvent is a top-level event from Claude's --output-format json output.
 type ClaudeEvent struct {
 	Type         string           `json:"type"`
+	Subtype      string           `json:"subtype,omitempty"`
 	Message      ClaudeMessage    `json:"message"`
 	DurationMS   float64          `json:"duration_ms"`
 	TotalCostUSD float64          `json:"total_cost_usd,omitempty"`
 	Usage        *TokenUsage      `json:"usage,omitempty"`
 	ModelUsage   *ModelTokenUsage `json:"model_usage,omitempty"`
+	Skills       []string         `json:"skills,omitempty"`
 }
 
 // ClaudeMessage contains a role and array of content items (lazily parsed).
@@ -59,6 +61,7 @@ type ModelTokenUsage map[string]TokenUsage
 type ExecutionResult struct {
 	Events    []ClaudeEvent
 	RawOutput []byte
+	Prompt    string
 }
 
 // ResultEvent returns the final "result" event, or nil if not found.
@@ -98,10 +101,14 @@ func (r *ExecutionResult) ToolNames() []string {
 	return names
 }
 
-// SkillUses extracts skill names from Skill tool invocations.
+// SkillUses extracts skill names from Skill tool invocations and slash commands.
+// It detects both model-initiated invocations (via the Skill tool) and
+// CLI-initiated invocations (via slash command prompts like "/rwx:migrate-from-gha").
 func (r *ExecutionResult) SkillUses() []string {
 	seen := make(map[string]bool)
 	var skills []string
+
+	// Detect model-initiated skill invocations (Skill tool_use).
 	for _, item := range r.ToolUses() {
 		if item.Name == "Skill" && item.Input != nil {
 			var si SkillInput
@@ -111,7 +118,36 @@ func (r *ExecutionResult) SkillUses() []string {
 			}
 		}
 	}
+
+	// Detect CLI-initiated skill invocations (slash command prompts).
+	// When the prompt starts with "/", the CLI expands the skill directly
+	// without going through the Skill tool. Cross-reference against the
+	// init event's skills list to verify the skill was actually registered.
+	if r.Prompt != "" && strings.HasPrefix(r.Prompt, "/") {
+		name := strings.SplitN(r.Prompt[1:], " ", 2)[0]
+		if name != "" && !seen[name] && r.isRegisteredSkill(name) {
+			seen[name] = true
+			skills = append(skills, name)
+		}
+	}
+
 	return skills
+}
+
+// isRegisteredSkill checks whether the given name appears in the init event's
+// skills list, confirming the plugin was loaded and the skill was available.
+func (r *ExecutionResult) isRegisteredSkill(name string) bool {
+	for _, evt := range r.Events {
+		if evt.Type == "system" && evt.Subtype == "init" {
+			for _, s := range evt.Skills {
+				if s == name {
+					return true
+				}
+			}
+			return false
+		}
+	}
+	return false
 }
 
 // TextOutput returns all text content from assistant messages, concatenated.
@@ -246,5 +282,5 @@ func RunClaude(ctx context.Context, prompt string, workDir string) (*ExecutionRe
 		return nil, fmt.Errorf("parsing claude output: %w\nraw output: %s", err, stdout.String())
 	}
 
-	return &ExecutionResult{Events: events, RawOutput: raw}, nil
+	return &ExecutionResult{Events: events, RawOutput: raw, Prompt: prompt}, nil
 }
