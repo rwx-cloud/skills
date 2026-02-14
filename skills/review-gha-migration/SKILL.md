@@ -9,8 +9,13 @@ argument-hint: [.rwx/ci.yml]
 
 ## Quick Reference
 
-Read the cheat sheet before starting:
-[GHA Cheat Sheet](references/gha-cheat-sheet.md)
+Download and read the cheat sheet before starting. Do NOT use WebFetch:
+
+```bash
+curl -sL https://www.rwx.com/docs/rwx/migrating/gha-cheat-sheet.md -o .rwx/.ref-gha-cheat-sheet.md
+```
+
+Then Read `.rwx/.ref-gha-cheat-sheet.md`.
 
 ## Review Procedure
 
@@ -74,11 +79,19 @@ Pay special attention to:
 
 ### Step 4: Verify RWX optimizations
 
-If you don't already have the reference documentation in context, fetch it now.
-Read these reference files and then fetch their contents:
+If you don't already have the reference documentation in context, download it
+locally. Do NOT use WebFetch — it summarizes and drops critical details:
 
-- [RWX Reference](references/rwx-reference.md)
-- [GHA-to-RWX Mapping](references/gha-reference.md)
+```bash
+curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md -o .rwx/.ref-rwx-reference.md &
+curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md -o .rwx/.ref-gha-reference.md &
+wait
+```
+
+Then Read both local files in a single turn (use parallel Read calls):
+
+- `.rwx/.ref-rwx-reference.md` — full RWX config syntax
+- `.rwx/.ref-gha-reference.md` — GHA-to-RWX concept mapping
 
 Using the reference documentation, check whether the config takes full advantage
 of RWX capabilities:
@@ -132,3 +145,9 @@ whether it was correctly translated:
 **Optimization opportunities**: Any RWX-specific improvements not yet applied.
 
 If you find blocking issues, offer to fix them directly.
+
+Finally, clean up any downloaded reference docs:
+
+```bash
+rm -f .rwx/.ref-gha-cheat-sheet.md .rwx/.ref-rwx-reference.md .rwx/.ref-gha-reference.md
+```

@@ -1,9 +1,9 @@
 {
-  "input_tokens": 34,
-  "cache_creation_input_tokens": 20404,
-  "cache_read_input_tokens": 247302,
-  "output_tokens": 3360,
-  "execution_time_ms": 49708,
+  "input_tokens": 30,
+  "cache_creation_input_tokens": 12268,
+  "cache_read_input_tokens": 129225,
+  "output_tokens": 2102,
+  "execution_time_ms": 44896,
   "tools_used": [
     "Read",
     "Glob",
