@@ -62,8 +62,8 @@ Reviews a generated RWX config against the original GitHub Actions workflow.
 ## Architecture
 
 - **Skills** (`skills/*/SKILL.md`) — Agent-neutral procedural playbooks. Each
-  skill references documentation via `references/` files that point to canonical
-  URLs.
+  skill includes `curl` commands for fetching the latest reference documentation
+  directly.
 - **MCP** (`.mcp.json`) — Connects to `rwx mcp serve` for package lookups,
   server-side translation, and on-demand docs. Optional — skills work
   standalone.

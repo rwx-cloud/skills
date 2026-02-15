@@ -164,11 +164,18 @@ func writeRWXInfo(t *testing.T, result *evals.ExecutionResult) {
 		key   string
 		value string
 	}{
-		{"total_cost_usd", fmt.Sprintf("$%.4f", evt.TotalCostUSD)},
 		{"input_tokens", fmt.Sprintf("%d", usage.InputTokens)},
 		{"cache_creation_input_tokens", fmt.Sprintf("%d", usage.CacheCreationInputTokens)},
 		{"cache_read_input_tokens", fmt.Sprintf("%d", usage.CacheReadInputTokens)},
 		{"output_tokens", fmt.Sprintf("%d", usage.OutputTokens)},
+	}
+
+	// Only report cost when using an API key (OAuth tokens don't report cost).
+	if os.Getenv("ANTHROPIC_API_KEY") != "" {
+		entries = append(entries, struct {
+			key   string
+			value string
+		}{"total_cost_usd", fmt.Sprintf("$%.4f", evt.TotalCostUSD)})
 	}
 
 	for _, e := range entries {

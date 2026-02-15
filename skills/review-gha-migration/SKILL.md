@@ -9,13 +9,11 @@ argument-hint: [.rwx/ci.yml]
 
 ## Quick Reference
 
-Download and read the cheat sheet before starting. Do NOT use WebFetch:
+Fetch and read the cheat sheet before starting. Do NOT use WebFetch — it
+summarizes and drops critical details. Instead, use Bash to curl the doc and
+read stdout directly:
 
-```bash
-curl -sL https://www.rwx.com/docs/rwx/migrating/gha-cheat-sheet.md -o .rwx/.ref-gha-cheat-sheet.md
-```
-
-Then Read `.rwx/.ref-gha-cheat-sheet.md`.
+    curl -sL https://www.rwx.com/docs/rwx/migrating/gha-cheat-sheet.md
 
 ## Review Procedure
 
@@ -79,19 +77,13 @@ Pay special attention to:
 
 ### Step 4: Verify RWX optimizations
 
-If you don't already have the reference documentation in context, download it
-locally. Do NOT use WebFetch — it summarizes and drops critical details:
+If you don't already have the reference documentation in context, fetch it now.
+Do NOT use WebFetch — it summarizes and drops critical details. Instead, use
+Bash to curl each doc and read stdout directly. Run both in a single turn as
+parallel Bash calls:
 
-```bash
-curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md -o .rwx/.ref-rwx-reference.md &
-curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md -o .rwx/.ref-gha-reference.md &
-wait
-```
-
-Then Read both local files in a single turn (use parallel Read calls):
-
-- `.rwx/.ref-rwx-reference.md` — full RWX config syntax
-- `.rwx/.ref-gha-reference.md` — GHA-to-RWX concept mapping
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md` — full RWX config syntax
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md` — GHA-to-RWX concept mapping
 
 Using the reference documentation, check whether the config takes full advantage
 of RWX capabilities:
@@ -145,9 +137,3 @@ whether it was correctly translated:
 **Optimization opportunities**: Any RWX-specific improvements not yet applied.
 
 If you find blocking issues, offer to fix them directly.
-
-Finally, clean up any downloaded reference docs:
-
-```bash
-rm -f .rwx/.ref-gha-cheat-sheet.md .rwx/.ref-rwx-reference.md .rwx/.ref-gha-reference.md
-```
