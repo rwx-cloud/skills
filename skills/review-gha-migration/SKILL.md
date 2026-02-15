@@ -82,8 +82,10 @@ Do NOT use WebFetch — it summarizes and drops critical details. Instead, use
 Bash to curl each doc and read stdout directly. Run both in a single turn as
 parallel Bash calls:
 
-- `curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md` — full RWX config syntax
-- `curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md` — GHA-to-RWX concept mapping
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md` — full RWX
+  config syntax
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md` —
+  GHA-to-RWX concept mapping
 
 Using the reference documentation, check whether the config takes full advantage
 of RWX capabilities:
