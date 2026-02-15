@@ -9,8 +9,11 @@ argument-hint: [.rwx/ci.yml]
 
 ## Quick Reference
 
-Read the cheat sheet before starting:
-[GHA Cheat Sheet](references/gha-cheat-sheet.md)
+Fetch and read the cheat sheet before starting. Do NOT use WebFetch — it
+summarizes and drops critical details. Instead, use Bash to curl the doc and
+read stdout directly:
+
+    curl -sL https://www.rwx.com/docs/rwx/migrating/gha-cheat-sheet.md
 
 ## Review Procedure
 
@@ -75,10 +78,14 @@ Pay special attention to:
 ### Step 4: Verify RWX optimizations
 
 If you don't already have the reference documentation in context, fetch it now.
-Read these reference files and then fetch their contents:
+Do NOT use WebFetch — it summarizes and drops critical details. Instead, use
+Bash to curl each doc and read stdout directly. Run both in a single turn as
+parallel Bash calls:
 
-- [RWX Reference](references/rwx-reference.md)
-- [GHA-to-RWX Mapping](references/gha-reference.md)
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/rwx-reference.md` — full RWX
+  config syntax
+- `curl -sL https://www.rwx.com/docs/rwx/migrating/gha-reference.md` —
+  GHA-to-RWX concept mapping
 
 Using the reference documentation, check whether the config takes full advantage
 of RWX capabilities:

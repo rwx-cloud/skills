@@ -38,5 +38,6 @@ Full step-by-step procedures are in the `skills/` directory:
 - `skills/migrate-from-gha/SKILL.md`
 - `skills/review-gha-migration/SKILL.md`
 
-Each skill directory also contains a `references/` folder with pointers to the
-latest RWX documentation.
+Each skill's SKILL.md includes `curl` commands for fetching the latest RWX
+documentation directly. Do NOT use WebFetch for these — use Bash to curl and
+read stdout.
