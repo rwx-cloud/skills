@@ -83,8 +83,7 @@ Bash to run `rwx docs pull` for each doc and read stdout directly. Run both in a
 single turn as parallel Bash calls:
 
 - `rwx docs pull /docs/rwx/migrating/rwx-reference` — full RWX config syntax
-- `rwx docs pull /docs/rwx/migrating/gha-reference` — GHA-to-RWX concept
-  mapping
+- `rwx docs pull /docs/rwx/migrating/gha-reference` — GHA-to-RWX concept mapping
 
 If you encounter a question not covered by these references, use
 `rwx docs search "<query>"` to find the relevant documentation page, then
