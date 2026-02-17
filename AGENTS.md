@@ -9,15 +9,26 @@ The `rwx` CLI must be on your PATH. Install it from
 
 ## Available Skills
 
-### migrate-from-gha
+### rwx
 
-Migrates a GitHub Actions workflow to an optimized RWX config with DAG
-parallelism, content-based caching, and RWX packages.
+Generates or modifies an RWX CI/CD config by analyzing project structure,
+selecting appropriate packages, and producing an optimized config with DAG
+parallelism, content-based caching, and RWX packages. If an existing
+`.rwx/*.yml` config is present, modifies it in place.
+
+Usage: invoke with an optional description, e.g. "CI pipeline with tests and
+deploy" or "add a deploy step with secrets"
+
+### Migration Skills
+
+#### migrate-from-gha
+
+Migrates a GitHub Actions workflow to an optimized RWX config.
 
 Usage: invoke with a path to a GitHub Actions workflow file, e.g.
 `.github/workflows/ci.yml`
 
-### review-gha-migration
+#### review-gha-migration
 
 Reviews a generated RWX config against the original GitHub Actions workflow to
 catch semantic gaps, missing steps, and optimization opportunities.
@@ -37,6 +48,7 @@ Full step-by-step procedures are in the `skills/` directory:
 
 - `skills/migrate-from-gha/SKILL.md`
 - `skills/review-gha-migration/SKILL.md`
+- `skills/rwx/SKILL.md`
 
 Each skill's SKILL.md includes `rwx docs pull` commands for fetching the latest
 RWX documentation directly. Do NOT use WebFetch for these — use Bash to run

@@ -4,14 +4,16 @@ Skills for working with [RWX](https://www.rwx.com).
 
 <!-- prettier-ignore -->
 > [!IMPORTANT]
-> This repository is under active development and is not yet fully supported.
+> This repository is under active development.
 
 ## Installation
 
 ### Claude Code
 
+In Claude Code, run:
+
 ```
-claude plugin install --from-repo https://github.com/rwx-cloud/skills
+/plugin marketplace add rwx-cloud/skills
 ```
 
 ### Universal (npx)
@@ -32,31 +34,41 @@ Copilot also reads `.github/copilot-instructions.md` for skill context.
 
 ## Skills
 
-### `/rwx:migrate-from-gha`
+### `/rwx`
 
-Migrates a GitHub Actions workflow to RWX.
+Generates or modifies an RWX CI/CD config. Analyzes project structure, selects
+appropriate packages, and produces an optimized config with DAG parallelism,
+content-based caching, and RWX packages. If an existing `.rwx/*.yml` config is
+present, modifies it in place.
 
 ```
-/rwx:migrate-from-gha .github/workflows/ci.yml
+/rwx CI pipeline with tests and deploy
 ```
 
 The skill will:
 
-1. Read and analyze the source workflow
-2. Translate triggers, jobs, and steps into RWX config
-3. Optimize for RWX strengths — parallel DAG, content-based caching, package
-   substitution
-4. Write the output to `.rwx/<name>.yml`
-5. Validate via `rwx lint` and fix any errors
-6. Run an automated review to catch gaps
-7. Summarize the migration and next steps
+1. Analyze project structure and any existing `.rwx/*.yml` configs
+2. Fetch the latest RWX reference documentation
+3. Generate (or update) an optimized config at `.rwx/<name>.yml`
+4. Validate via `rwx lint` and fix any errors
+5. Summarize the DAG shape, packages used, and next steps
 
-### `/rwx:review-gha-migration`
+### Migration Skills
+
+#### `/migrate-from-gha`
+
+Migrates a GitHub Actions workflow to RWX.
+
+```
+/migrate-from-gha .github/workflows/ci.yml
+```
+
+#### `/review-gha-migration`
 
 Reviews a generated RWX config against the original GitHub Actions workflow.
 
 ```
-/rwx:review-gha-migration .rwx/ci.yml
+/review-gha-migration .rwx/ci.yml
 ```
 
 ## Architecture
