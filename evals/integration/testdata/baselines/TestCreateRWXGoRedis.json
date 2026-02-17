@@ -1,0 +1,18 @@
+{
+  "input_tokens": 60,
+  "cache_creation_input_tokens": 15442,
+  "cache_read_input_tokens": 325759,
+  "output_tokens": 3864,
+  "execution_time_ms": 81250,
+  "tools_used": [
+    "Bash",
+    "Glob",
+    "Read",
+    "TodoWrite",
+    "Write",
+    "Edit"
+  ],
+  "skills_used": [
+    "rwx:rwx"
+  ]
+}
