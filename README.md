@@ -94,12 +94,6 @@ Reviews a generated RWX config against the original GitHub Actions workflow.
 | `.github/copilot-instructions.md` | GitHub Copilot  | Agent instructions                  |
 | `marketplace.json`                | Universal       | Skill registry for `npx skills add` |
 
-## Evals
-
-The `evals/` directory contains a Go-based evaluation framework that tests
-skills end-to-end by running Claude headlessly against fixtures. See
-[`evals/README.md`](evals/README.md) for details.
-
 ## Requirements
 
 - [RWX CLI](https://www.rwx.com/docs/rwx/getting-started/installing-the-cli)
