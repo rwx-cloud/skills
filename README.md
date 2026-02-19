@@ -8,6 +8,10 @@ Skills for working with [RWX](https://www.rwx.com).
 
 ## Installation
 
+This skill also requires that the
+[RWX CLI](https://www.rwx.com/docs/rwx/getting-started) is installed and
+authenticated.
+
 ### Claude Code
 
 In Claude Code, run:
