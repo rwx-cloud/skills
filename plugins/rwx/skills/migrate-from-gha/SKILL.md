@@ -104,6 +104,10 @@ Structure the file in this order:
 4. `tasks:` array, ordered by DAG level (independent tasks first, then their
    dependents)
 
+Do NOT annotate tasks or comments with "Level 0", "Level 1", "Level 2", etc.
+These DAG-depth labels are not RWX terminology and should never appear in the
+generated config.
+
 After writing the file, validate the generated config:
 
     rwx lint .rwx/<name>.yml
