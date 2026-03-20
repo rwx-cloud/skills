@@ -93,6 +93,12 @@ optimization rules from the reference documentation — including DAG
 decomposition, content-based caching, package substitution, trigger mapping,
 secret mapping, and environment variable translation.
 
+If the source workflow uses `on: workflow_run` (triggered after another workflow
+completes), translate this to an RWX **embedded run** — a run config nested
+inside the parent workflow's config. Consult the reference docs for embedded run
+syntax. Do not fall back to dispatch triggers or conditional push triggers for
+this case.
+
 Look for parallelism opportunities _within_ individual GHA jobs, not just across
 jobs. If a single job contains multiple independent steps (e.g., eslint,
 prettier, and openapi validation in a "lint" job), split them into separate RWX
