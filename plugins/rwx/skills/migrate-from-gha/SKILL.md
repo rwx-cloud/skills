@@ -93,6 +93,12 @@ optimization rules from the reference documentation — including DAG
 decomposition, content-based caching, package substitution, trigger mapping,
 secret mapping, and environment variable translation.
 
+Look for parallelism opportunities _within_ individual GHA jobs, not just across
+jobs. If a single job contains multiple independent steps (e.g., eslint,
+prettier, and openapi validation in a "lint" job), split them into separate RWX
+tasks that can run in parallel rather than combining them into one sequential
+`run:` block.
+
 Write the generated RWX config to `.rwx/<name>.yml`, where `<name>` is derived
 from the source workflow filename (e.g., `ci.github.yml` → `.rwx/ci.yml`).
 
