@@ -99,7 +99,9 @@ of RWX capabilities:
 - **Package substitution**: Are there `run:` steps installing tools that have
   RWX package equivalents?
 - **Task granularity**: Could large monolithic tasks be split into parallel
-  subtasks?
+  subtasks? In particular, flag install tasks that also contain build commands
+  (e.g., `npm ci` followed by `npm run build`) — these should be separate tasks
+  for independent cacheability.
 - **Trigger optimization**: Are triggers using path filters and branch filters
   effectively?
 

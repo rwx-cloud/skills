@@ -99,6 +99,12 @@ prettier, and openapi validation in a "lint" job), split them into separate RWX
 tasks that can run in parallel rather than combining them into one sequential
 `run:` block.
 
+Separate install and build into distinct tasks. When a GHA job runs `npm ci` (or
+similar) followed by a build step (e.g., `npm run build` for a shared package),
+these should be two separate RWX tasks so the build can be cached independently.
+If the same build command appears in multiple GHA jobs, produce a single shared
+build task in the DAG rather than duplicating it.
+
 Write the generated RWX config to `.rwx/<name>.yml`, where `<name>` is derived
 from the source workflow filename (e.g., `ci.github.yml` → `.rwx/ci.yml`).
 
