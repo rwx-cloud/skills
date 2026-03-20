@@ -1,9 +1,12 @@
 ---
 name: review-gha-migration
+metadata:
+  version: "0.1.3"
 description:
   Review an RWX config generated from a GitHub Actions migration. Compares the
   source workflow against the generated config to catch semantic gaps, missing
-  steps, and optimization opportunities.
+  steps, and optimization opportunities. TRIGGER when: the user asks to review,
+  validate, or check an RWX config that was migrated from GitHub Actions.
 argument-hint: [.rwx/ci.yml]
 ---
 

@@ -1,9 +1,12 @@
 ---
 name: migrate-from-gha
+metadata:
+  version: "0.1.3"
 description:
   Migrate a GitHub Actions workflow to RWX. Translates triggers, jobs, steps
   into an optimized RWX config with DAG parallelism, content-based caching, and
-  RWX packages.
+  RWX packages. TRIGGER when: the user asks to migrate, convert, or translate a
+  GitHub Actions workflow to RWX.
 argument-hint: [path/to/.github/workflows/ci.yml]
 ---
 
