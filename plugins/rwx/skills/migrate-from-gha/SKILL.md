@@ -111,6 +111,13 @@ these should be two separate RWX tasks so the build can be cached independently.
 If the same build command appears in multiple GHA jobs, produce a single shared
 build task in the DAG rather than duplicating it.
 
+If the source workflow contains `docker build` steps, use AskUserQuestion to ask
+whether they'd like to use **RWX OCI images** instead. Explain the tradeoffs:
+OCI images leverage RWX's native image building with content-based caching and
+no Docker daemon dependency, but require adopting RWX-specific configuration.
+Consult the cheat sheet for OCI image details. Respect the user's choice — if
+they prefer to keep `docker build`, translate it directly.
+
 Write the generated RWX config to `.rwx/<name>.yml`, where `<name>` is derived
 from the source workflow filename (e.g., `ci.github.yml` → `.rwx/ci.yml`).
 
