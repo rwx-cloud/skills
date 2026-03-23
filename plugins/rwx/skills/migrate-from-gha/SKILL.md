@@ -1,9 +1,12 @@
 ---
 name: migrate-from-gha
+metadata:
+  version: "0.1.3"
 description:
   Migrate a GitHub Actions workflow to RWX. Translates triggers, jobs, steps
   into an optimized RWX config with DAG parallelism, content-based caching, and
-  RWX packages.
+  RWX packages. TRIGGER when: the user asks to migrate, convert, or translate a
+  GitHub Actions workflow to RWX.
 argument-hint: [path/to/.github/workflows/ci.yml]
 ---
 
@@ -93,6 +96,31 @@ optimization rules from the reference documentation — including DAG
 decomposition, content-based caching, package substitution, trigger mapping,
 secret mapping, and environment variable translation.
 
+If the source workflow uses `on: workflow_run` (triggered after another workflow
+completes), translate this to an RWX **embedded run** — a run config nested
+inside the parent workflow's config. Consult the reference docs for embedded run
+syntax. Do not fall back to dispatch triggers or conditional push triggers for
+this case.
+
+Look for parallelism opportunities _within_ individual GHA jobs, not just across
+jobs. If a single job contains multiple independent steps (e.g., eslint,
+prettier, and openapi validation in a "lint" job), split them into separate RWX
+tasks that can run in parallel rather than combining them into one sequential
+`run:` block.
+
+Separate install and build into distinct tasks. When a GHA job runs `npm ci` (or
+similar) followed by a build step (e.g., `npm run build` for a shared package),
+these should be two separate RWX tasks so the build can be cached independently.
+If the same build command appears in multiple GHA jobs, produce a single shared
+build task in the DAG rather than duplicating it.
+
+If the source workflow contains `docker build` steps, use AskUserQuestion to ask
+whether they'd like to use **RWX OCI images** instead. Explain the tradeoffs:
+OCI images leverage RWX's native image building with content-based caching and
+no Docker daemon dependency, but require adopting RWX-specific configuration.
+Consult the cheat sheet for OCI image details. Respect the user's choice — if
+they prefer to keep `docker build`, translate it directly.
+
 Write the generated RWX config to `.rwx/<name>.yml`, where `<name>` is derived
 from the source workflow filename (e.g., `ci.github.yml` → `.rwx/ci.yml`).
 
@@ -101,8 +129,8 @@ Structure the file in this order:
 1. `on:` triggers
 2. `base:` image and config
 3. `tool-cache:` (if needed)
-4. `tasks:` array, ordered by DAG level (independent tasks first, then their
-   dependents)
+4. `tasks:` array, ordered by dependency depth (independent tasks first, then
+   their dependents)
 
 After writing the file, validate the generated config:
 
@@ -136,7 +164,8 @@ review:
 - The review verdict and any issues found (or confirmation that it passed)
 - Any `# TODO:` items that need manual attention
 - Secrets that need to be configured in RWX Cloud
-- Estimated parallelism improvement (e.g., "6 sequential steps → 3-level DAG")
+- Estimated parallelism improvement (e.g., "6 sequential steps → 3 parallel
+  stages")
 
 Let the user know they can re-run the review independently at any time with
 `/review-gha-migration`.

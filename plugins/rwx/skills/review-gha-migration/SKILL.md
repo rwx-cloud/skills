@@ -1,9 +1,12 @@
 ---
 name: review-gha-migration
+metadata:
+  version: "0.1.3"
 description:
   Review an RWX config generated from a GitHub Actions migration. Compares the
   source workflow against the generated config to catch semantic gaps, missing
-  steps, and optimization opportunities.
+  steps, and optimization opportunities. TRIGGER when: the user asks to review,
+  validate, or check an RWX config that was migrated from GitHub Actions.
 argument-hint: [.rwx/ci.yml]
 ---
 
@@ -99,7 +102,9 @@ of RWX capabilities:
 - **Package substitution**: Are there `run:` steps installing tools that have
   RWX package equivalents?
 - **Task granularity**: Could large monolithic tasks be split into parallel
-  subtasks?
+  subtasks? In particular, flag install tasks that also contain build commands
+  (e.g., `npm ci` followed by `npm run build`) — these should be separate tasks
+  for independent cacheability.
 - **Trigger optimization**: Are triggers using path filters and branch filters
   effectively?
 

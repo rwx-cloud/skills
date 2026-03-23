@@ -1,9 +1,12 @@
 ---
 name: rwx
+metadata:
+  version: "0.1.3"
 description:
   Can be used to kick off local "run loops" on the RWX CI platform, or when
   understanding, creating or modifying an RWX CI/CD config or any other file in
-  a .rwx directory.
+  a .rwx directory. TRIGGER when: the user asks about RWX, wants to create or
+  modify an RWX config, debug test failures, or start a run loop.
 argument-hint: [optional description, e.g. "CI pipeline with tests and deploy"]
 allowed-tools:
   Bash(rwx lint *), Bash(rwx docs *), Bash(rwx logs *), Bash(rwx artifacts *),
