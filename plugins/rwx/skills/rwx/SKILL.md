@@ -2,7 +2,7 @@
 name: rwx
 metadata:
   version: "0.1.3"
-description:
+description: >-
   Can be used to kick off local "run loops" on the RWX CI platform, or when
   understanding, creating or modifying an RWX CI/CD config or any other file in
   a .rwx directory. TRIGGER when: the user asks about RWX, wants to create or
