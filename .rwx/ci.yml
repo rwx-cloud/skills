@@ -4,6 +4,10 @@ on:
       init:
         commit-sha: ${{ event.git.sha }}
         branch: ${{ event.git.branch }}
+  cli:
+    init:
+      commit-sha: ${{ event.git.sha }}
+      branch: ${{ event.git.branch }}
 
 concurrency-pools:
   - id: rwx-cloud/skills:${{ init.branch }}
@@ -37,3 +41,13 @@ tasks:
   - key: prettier
     use: [code, nodejs]
     run: npx --yes prettier --check "**/*.md"
+
+  - key: install-skills
+    use: [code, nodejs]
+    run: npx skills add . -y
+
+  - key: claude-plugins
+    use: [code, nodejs]
+    run: |
+      npx --yes @anthropic-ai/claude-code plugin marketplace add ./.claude-plugin/marketplace.json
+      npx --yes @anthropic-ai/claude-code plugin install rwx
