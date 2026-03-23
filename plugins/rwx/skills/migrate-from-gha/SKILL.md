@@ -129,12 +129,8 @@ Structure the file in this order:
 1. `on:` triggers
 2. `base:` image and config
 3. `tool-cache:` (if needed)
-4. `tasks:` array, ordered by DAG level (independent tasks first, then their
-   dependents)
-
-Do NOT annotate tasks or comments with "Level 0", "Level 1", "Level 2", etc.
-These DAG-depth labels are not RWX terminology and should never appear in the
-generated config.
+4. `tasks:` array, ordered by dependency depth (independent tasks first, then
+   their dependents)
 
 After writing the file, validate the generated config:
 
@@ -168,7 +164,8 @@ review:
 - The review verdict and any issues found (or confirmation that it passed)
 - Any `# TODO:` items that need manual attention
 - Secrets that need to be configured in RWX Cloud
-- Estimated parallelism improvement (e.g., "6 sequential steps → 3-level DAG")
+- Estimated parallelism improvement (e.g., "6 sequential steps → 3 parallel
+  stages")
 
 Let the user know they can re-run the review independently at any time with
 `/review-gha-migration`.
