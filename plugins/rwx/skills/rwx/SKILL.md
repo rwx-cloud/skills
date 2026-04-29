@@ -1,12 +1,14 @@
 ---
 name: rwx
 metadata:
-  version: "0.1.4"
+  version: "0.1.5"
 description: >-
   Can be used to kick off local "run loops" on the RWX CI platform, or when
   understanding, creating or modifying an RWX CI/CD config or any other file in
-  a .rwx directory. TRIGGER when: the user asks about RWX, wants to create or
-  modify an RWX config, debug test failures, check a run status, or start a run
+  a .rwx directory. TRIGGER when: the user asks about RWX; wants to create or
+  modify an RWX config; says things like "CI failed", "CI is red", or "tests are
+  failing in CI"; asks "what's failing on my PR / branch / commit?"; wants to
+  debug test failures, check a run status, fetch logs/artifacts, or start a run
   loop.
 argument-hint: [optional description, e.g. "CI pipeline with tests and deploy"]
 allowed-tools:
@@ -36,7 +38,7 @@ fashion until the run passes.
 
 No git push is required to invoke a run from the RWX CLI.
 
-## Check run results or status of a branch
+## Check CI / run results or status of a branch
 
 If you have been asked to check on run failures or CI failures, or if you have
 been asked to check the current run status of the current branch or a given
