@@ -1,7 +1,7 @@
 ---
 name: review-gha-migration
 metadata:
-  version: "0.1.5"
+  version: "0.1.6"
 description: >-
   Review an RWX config generated from a GitHub Actions migration. Compares the
   source workflow against the generated config to catch semantic gaps, missing
