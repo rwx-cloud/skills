@@ -5,7 +5,7 @@
     "name": "RWX",
     "email": "support@rwx.com"
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
   "skills": [
     "./skills/rwx",
     "./skills/migrate-from-gha",

@@ -1,7 +1,7 @@
 ---
 name: migrate-from-gha
 metadata:
-  version: "0.1.5"
+  version: "0.1.6"
 description: >-
   Migrate a GitHub Actions workflow to RWX. Translates triggers, jobs, steps
   into an optimized RWX config with DAG parallelism, content-based caching, and
