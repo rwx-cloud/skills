@@ -22,9 +22,10 @@ getting started: `rwx whoami`
 
 ## RWX Run Definition Syntax
 
-When working with RWX, it is extremely important to use the reference documentation.
-Run the following command to pull the reference documentation.
-The output is already constrained in size, and it is very important to not truncate the output of this command.
+When working with RWX, it is extremely important to use the reference
+documentation. Run the following command to pull the reference documentation.
+The output is already constrained in size, and it is very important to not
+truncate the output of this command.
 
 `rwx docs pull /migrating/rwx-reference`
 
@@ -38,10 +39,12 @@ If the user chooses, you can kick off an actual run on RWX:
 
 `rwx run .rwx/<file>.yml --wait`
 
-When the run finishes, results will be shown, and you can iterate until the run passes.
+When the run finishes, results will be shown, and you can iterate until the run
+passes.
 
-You do not need to commit and push to invoke a run with RWX, even if the run definition references a commit sha.
-RWX will automatically patch the git clone with the local contents.
+You do not need to commit and push to invoke a run with RWX, even if the run
+definition references a commit sha. RWX will automatically patch the git clone
+with the local contents.
 
 ## Check CI / run results or status of a branch
 
