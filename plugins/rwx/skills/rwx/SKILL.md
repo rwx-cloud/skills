@@ -42,7 +42,7 @@ If the user chooses, you can kick off an actual run on RWX:
 When the run finishes, results will be shown, and you can iterate until the run
 passes.
 
-You do not need to commit and push to invoke a run with RWX, even if the run
+You do not need to commit or push to invoke a run with RWX, even if the run
 definition references a commit sha. RWX will automatically patch the git clone
 with the local contents.
 
