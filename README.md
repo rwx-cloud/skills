@@ -2,14 +2,10 @@
 
 Skills for working with [RWX](https://www.rwx.com).
 
-<!-- prettier-ignore -->
-> [!IMPORTANT]
-> This repository is under active development.
-
 ## Installation
 
-This skill also requires that the
-[RWX CLI](https://www.rwx.com/docs/rwx/getting-started) is installed and
+This skill requires that the
+[RWX CLI](https://www.rwx.com/docs/getting-started) is installed and
 authenticated.
 
 ### Claude Code
@@ -100,7 +96,7 @@ Reviews a generated RWX config against the original GitHub Actions workflow.
 
 ## Requirements
 
-- [RWX CLI](https://www.rwx.com/docs/rwx/getting-started/installing-the-cli)
+- [RWX CLI](https://www.rwx.com/docs/getting-started)
   (`rwx` on PATH)
 
 ## License
