@@ -1,11 +1,10 @@
 ---
 name: rwx
 metadata:
-  version: "0.1.6"
+  version: "0.2.0"
 description: >-
-  Can be used to kick off local "run loops" on the RWX CI platform, or when
-  understanding, creating or modifying an RWX CI/CD config or any other file in
-  a .rwx directory. TRIGGER when: the user asks about RWX; wants to create or
+  Used to create, modify, or understand an RWX CI/CD config or any other file in
+  a `.rwx` directory. TRIGGER when: the user asks about RWX; wants to create or
   modify an RWX config; says things like "CI failed", "CI is red", or "tests are
   failing in CI"; asks "what's failing on my PR / branch / commit?"; wants to 
   run tests or build steps in a sandbox; wants to debug test failures, check a 
@@ -21,22 +20,31 @@ allowed-tools:
 Ensure the user is signed in and on the latest version of the RWX CLI before
 getting started: `rwx whoami`
 
-Then, fetch the reference docs index with:
+## RWX Run Definition Syntax
 
-    rwx docs pull /docs/rwx/migrating/rwx-reference
+When working with RWX, it is extremely important to use the reference
+documentation. Run the following command to pull the reference documentation.
+The output is already constrained in size, and it is very important to not
+truncate the output of this command.
+
+`rwx docs pull /migrating/rwx-reference`
 
 If you encounter a question not covered by these references, use
 `rwx docs search "<query>"` to find the relevant documentation page, then
 `rwx docs pull` the result.
 
+## Executing Runs
+
 If the user chooses, you can kick off an actual run on RWX:
 
-    rwx run .rwx/<name>.yml --wait
+`rwx run .rwx/<file>.yml --wait`
 
-When the run finishes, results will be shown, and you can iterate in that
-fashion until the run passes.
+When the run finishes, results will be shown, and you can iterate until the run
+passes.
 
-No git push is required to invoke a run from the RWX CLI.
+You do not need to commit or push to invoke a run with RWX, even if the run
+definition references a commit sha. RWX will automatically patch the git clone
+with the local contents.
 
 ## Check CI / run results or status of a branch
 
@@ -44,15 +52,13 @@ If you have been asked to check on run failures or CI failures, or if you have
 been asked to check the current run status of the current branch or a given
 branch:
 
-    rwx results -h
+`rwx results -h`
 
 ## Sandboxes
 
-If the user asks to run tests, build steps, or migrations in a sandbox:
+If the user mentions using a sandbox:
 
-    rwx sandbox exec -- <command>
-
-See more with `rwx sandbox --help`.
+`rwx sandbox exec -- <command>`
 
 ## Generate or Modify RWX Config
 

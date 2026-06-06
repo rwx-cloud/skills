@@ -39,7 +39,7 @@ tasks:
 
   - key: prettier
     use: [code, nodejs]
-    run: npx --yes prettier --check "**/*.md"
+    run: npx --yes prettier@3.8.3 --check "**/*.md"
 
   - key: install-skills
     use: [code, nodejs]
