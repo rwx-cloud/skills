@@ -1,7 +1,7 @@
 ---
 name: rwx
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
 description: >-
   Used to create, modify, or understand an RWX CI/CD config or any other file in
   a `.rwx` directory. TRIGGER when: the user asks about RWX; wants to create or
@@ -37,7 +37,10 @@ If you encounter a question not covered by these references, use
 
 If the user chooses, you can kick off an actual run on RWX:
 
-`rwx run .rwx/<file>.yml --wait`
+`rwx run .rwx/<file>.yml --wait --fail-fast`
+
+`--fail-fast` stops waiting as soon as a failure is available instead of
+blocking until the whole run completes, so you iterate faster.
 
 When the run finishes, results will be shown, and you can iterate until the run
 passes.
