@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "rwx": {
-      "command": "rwx",
-      "args": ["mcp", "serve"]
-    }
-  }
-}
