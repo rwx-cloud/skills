@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "rwx-mcp",
+  "version": "0.1.0",
+  "description": "Investigate RWX CI runs, task results, logs, artifacts, and documentation.",
+  "author": {
+    "name": "RWX",
+    "email": "support@rwx.com",
+    "url": "https://www.rwx.com"
+  },
+  "homepage": "https://www.rwx.com/docs/mcp",
+  "repository": "https://github.com/rwx-cloud/skills",
+  "license": "MIT",
+  "keywords": ["rwx", "ci", "mcp", "developer-tools"]
+}

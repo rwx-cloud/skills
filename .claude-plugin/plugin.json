@@ -1,6 +1,6 @@
 {
   "name": "rwx",
-  "description": "RWX CI/CD platform integration — migrate workflows, validate configs, debug test failures",
+  "description": "Configure RWX CI/CD, investigate failed runs, and run builds and tests in RWX sandboxes.",
   "version": "0.1.0",
   "author": {
     "name": "RWX",

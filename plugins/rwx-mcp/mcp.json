@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "rwx": {
+      "type": "streamable-http",
+      "url": "https://mcp.rwx.com/mcp"
+    }
+  }
+}

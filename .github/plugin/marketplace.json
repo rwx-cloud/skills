@@ -1,0 +1,19 @@
+{
+  "name": "rwx",
+  "owner": {
+    "name": "RWX",
+    "email": "support@rwx.com"
+  },
+  "plugins": [
+    {
+      "name": "rwx",
+      "source": "./plugins/rwx",
+      "description": "Configure RWX CI/CD, investigate failed runs, and run builds and tests in RWX sandboxes."
+    },
+    {
+      "name": "rwx-mcp",
+      "source": "./plugins/rwx-mcp",
+      "description": "Investigate RWX CI runs, task results, logs, artifacts, and documentation."
+    }
+  ]
+}

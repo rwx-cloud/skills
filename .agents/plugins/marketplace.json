@@ -1,0 +1,32 @@
+{
+  "name": "rwx",
+  "interface": {
+    "displayName": "RWX"
+  },
+  "plugins": [
+    {
+      "name": "rwx",
+      "source": {
+        "source": "local",
+        "path": "./plugins/rwx"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "rwx-mcp",
+      "source": {
+        "source": "local",
+        "path": "./plugins/rwx-mcp"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
