@@ -76,11 +76,6 @@ Reviews a generated RWX config against the original GitHub Actions workflow.
 - **Skills** (`skills/*/SKILL.md`) — Agent-neutral procedural playbooks. Each
   skill includes `curl` commands for fetching the latest reference documentation
   directly.
-- **MCP** (`.mcp.json`) — Connects to `rwx mcp serve` for package lookups,
-  server-side translation, and on-demand docs. Optional — skills work
-  standalone.
-- **LSP** (`.lsp.json`) — Connects to the RWX language server for real-time
-  validation of `.rwx/*.yml` files (Claude Code).
 - **CLI Validation** — `rwx lint <file>` provides validation for all agents via
   the command line.
 
@@ -90,11 +85,7 @@ Reviews a generated RWX config against the original GitHub Actions workflow.
 | --------------------------------- | --------------- | ----------------------------------- |
 | `AGENTS.md`                       | Codex, OpenCode | Vendor-neutral agent instructions   |
 | `.claude-plugin/plugin.json`      | Claude Code     | Plugin discovery                    |
-| `.claude/settings.local.json`     | Claude Code     | Permissions and MCP config          |
-| `.lsp.json`                       | Claude Code     | Real-time LSP validation            |
-| `.mcp.json`                       | Claude Code     | MCP server config                   |
-| `.codex/config.toml`              | Codex           | MCP server config (TOML)            |
-| `.vscode/mcp.json`                | Cursor, Copilot | MCP server config (VS Code)         |
+| `.claude/settings.local.json`     | Claude Code     | Permissions                         |
 | `.github/copilot-instructions.md` | GitHub Copilot  | Agent instructions                  |
 | `marketplace.json`                | Universal       | Skill registry for `npx skills add` |
 

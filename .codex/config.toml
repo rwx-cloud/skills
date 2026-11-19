@@ -1,3 +1,0 @@
-[mcp_servers.rwx]
-command = "rwx"
-args = ["mcp", "serve"]

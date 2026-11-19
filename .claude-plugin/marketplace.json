@@ -15,7 +15,5 @@
       "source": "./plugins/rwx",
       "description": "Generate or modify an RWX config"
     }
-  ],
-  "mcpServers": ".mcp.json",
-  "lspServers": ".lsp.json"
+  ]
 }
