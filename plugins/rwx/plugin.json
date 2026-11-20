@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "rwx",
+  "description": "Configure RWX CI/CD, investigate failed runs, and run builds and tests in RWX sandboxes.",
+  "author": {
+    "name": "RWX",
+    "email": "support@rwx.com"
+  },
+  "version": "0.1.6"
+}

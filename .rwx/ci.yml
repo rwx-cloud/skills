@@ -41,6 +41,26 @@ tasks:
     use: [code, nodejs]
     run: npx --yes prettier@3.8.3 --check "**/*.md"
 
+  - key: validate-agent-plugins-schema
+    use: [code, nodejs]
+    run: |
+      curl -fsSL https://agent-plugins.org/schemas/1.0.0/plugin.schema.json -o /tmp/agent-plugin.schema.json
+      curl -fsSL https://agent-plugins.org/schemas/1.0.0/mcp.schema.json -o /tmp/agent-mcp.schema.json
+      npx --yes --package ajv-cli@5.0.0 --package ajv-formats@3.0.1 ajv validate --spec=draft2020 -c ajv-formats -s /tmp/agent-plugin.schema.json -d 'plugins/*/plugin.json'
+      npx --yes --package ajv-cli@5.0.0 --package ajv-formats@3.0.1 ajv validate --spec=draft2020 -c ajv-formats -s /tmp/agent-mcp.schema.json -d plugins/rwx-mcp/mcp.json
+
+  - key: plugin-marketplaces
+    use: [code, nodejs]
+    run: |
+      export CODEX_HOME="$HOME/.codex-marketplace-test" COPILOT_HOME="$HOME/.copilot-marketplace-test"
+      mkdir -p "$CODEX_HOME" "$COPILOT_HOME"
+      npx --yes @openai/codex@0.170.0 plugin marketplace add "$PWD"
+      npx --yes @openai/codex@0.170.0 plugin marketplace list
+      npx --yes @github/copilot@1.0.114 plugin marketplace add "$PWD"
+      npx --yes @github/copilot@1.0.114 plugin marketplace browse rwx --json
+      npx --yes @github/copilot@1.0.114 plugin install rwx@rwx
+      npx --yes @github/copilot@1.0.114 plugin install rwx-mcp@rwx
+
   - key: install-skills
     use: [code, nodejs]
     run: npx skills add . -y
@@ -48,5 +68,7 @@ tasks:
   - key: claude-plugins
     use: [code, nodejs]
     run: |
+      npx --yes @anthropic-ai/claude-code plugin validate ./.claude-plugin/marketplace.json
       npx --yes @anthropic-ai/claude-code plugin marketplace add ./.claude-plugin/marketplace.json
-      npx --yes @anthropic-ai/claude-code plugin install rwx
+      npx --yes @anthropic-ai/claude-code plugin install rwx@rwx
+      npx --yes @anthropic-ai/claude-code plugin install rwx-mcp@rwx
